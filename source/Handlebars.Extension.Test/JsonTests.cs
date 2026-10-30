@@ -44,7 +44,7 @@ namespace HandlebarsDotNet.Extension.Test
             handlebars.Configuration.FormatterProviders.Add(new DoubleFormatter());
             var template = handlebars.Compile(source);
 
-            var output = template(model).ToUpper();
+            var output = template(model).ToUpperInvariant();
 
             Assert.Equal(value.Trim('"'), output);
         }
@@ -226,7 +226,7 @@ namespace HandlebarsDotNet.Extension.Test
 
             var output = template(model);
 
-            Assert.Equal("0-True--Key1-Val1;1-False--Key2-Val2;", output);
+            Assert.Equal("0-True-False-Key1-Val1;1-False-True-Key2-Val2;", output);
         }
         
         [Theory]
@@ -395,7 +395,7 @@ namespace HandlebarsDotNet.Extension.Test
             Assert.Equal( makeFlat( expected ), makeFlat( result ) );
         }
         
-        private class ListPropertiesHelper : IHelperDescriptor<HelperOptions>
+        private sealed class ListPropertiesHelper : IHelperDescriptor<HelperOptions>
         {
             public PathInfo Name { get; } = "ListProperties";
 

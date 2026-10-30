@@ -11,11 +11,9 @@ namespace HandlebarsNet.Extension.Benchmark
         private object _data;
         private HandlebarsTemplate<TextWriter, object, object> _default;
 
-        [Params(5)]
-        public int N { get; set; }
-        
-        [Params("json")]
-        public string DataType { get; set; }
+        public int N { get; set; } = 5;
+
+        public string DataType { get; set; } = "json";
         
         [GlobalSetup]
         public void Setup()

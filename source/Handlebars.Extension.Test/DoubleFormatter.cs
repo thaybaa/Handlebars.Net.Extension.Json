@@ -4,11 +4,11 @@ using HandlebarsDotNet.IO;
 
 namespace HandlebarsDotNet.Extension.Test
 {
-    internal class DoubleFormatter : IFormatter, IFormatterProvider
+    internal sealed class DoubleFormatter : IFormatter, IFormatterProvider
     {
         public void Format<T>(T value, in EncodedTextWriter writer)
         {
-            if (!(value is double d)) throw new ArgumentException();
+            if (!(value is double d)) throw new ArgumentException("Value must be a double.", nameof(value));
 
             writer.Write(DoubleConverter.ToExactString(d));
         }
@@ -107,7 +107,7 @@ namespace HandlebarsDotNet.Extension.Test
             }
 
             /// <summary>Private class used for manipulating
-            class ArbitraryDecimal
+            sealed class ArbitraryDecimal
             {
                 /// <summary>Digits in the decimal expansion, one byte per digit
                 byte[] digits;
@@ -115,7 +115,7 @@ namespace HandlebarsDotNet.Extension.Test
                 /// <summary> 
                 /// How many digits are *after* the decimal point
                 /// </summary>
-                int decimalPoint = 0;
+                int decimalPoint;
 
                 /// <summary> 
                 /// Constructs an arbitrary decimal expansion from the given long.
